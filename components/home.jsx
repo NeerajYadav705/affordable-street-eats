@@ -46,43 +46,43 @@ export default function Home() {
   const trendingFoods = [
     {
       id: 1,
-      name: "Pahadi Aloo Ke Gutke",
-      vendor: "Mountain Spice",
-      price: "₹40",
+      name: "Mama Ji Katlambe Chole Wale",
+      vendor: "Mama Ji",
+      price: "₹70",
       rating: 4.9,
-      image: "/images/foods/aloo-gutke.jpg",
-      location: "Paltan Bazaar",
+      image: "/hero/mamaji.jpg",
+      location: "Moti Bazar Near Paltan Bazar",
       tags: ["Spicy", "Local"],
     },
     {
       id: 2,
-      name: "Bal Mithai",
-      vendor: "Sweet Heaven",
-      price: "₹100/box",
+      name: "The Buffet Eating Corner.",
+      vendor: "Sweet, Burger, and more",
+      price: "₹100 - 200",
       rating: 4.8,
-      image: "/images/foods/bal-mithai.jpg",
+      image: "/hero/buffet.jpg",
       location: "Rajpur Road",
       tags: ["Sweet", "Uttarakhand Special"],
     },
     {
       id: 3,
-      name: "Bhang Ki Chutney",
-      vendor: "Garhwali Flavors",
-      price: "₹30",
+      name: "Angethi momo",
+      vendor: "Fast Food",
+      price: "₹50 - 100",
       rating: 4.7,
-      image: "/images/foods/bhang-chutney.jpg",
-      location: "Clock Tower",
+      image: "/hero/momo.jpg",
+      location: "Nehru Colony",
       tags: ["Unique", "Traditional"],
     },
     {
       id: 4,
-      name: "Singodi",
-      vendor: "Maa Ka Doodh",
-      price: "₹50/pack",
+      name: "THE SHAWARMA KING",
+      vendor: "Shawarma restaurant",
+      price: "₹200 - 400",
       rating: 4.6,
-      image: "/images/foods/singodi.jpg",
-      location: "Chakrata Road",
-      tags: ["Dessert", "Seasonal"],
+      image: "/hero/SHAWARMA.jpg",
+      location: "Dharampur",
+      tags: ["Veg", "Chicken"],
     },
   ];
 
@@ -497,7 +497,7 @@ export default function Home() {
 
             <div className="relative h-80 rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="/hero/juice.jpg"
+                src="/hero/drinks.jpg"
                 alt="Seasonal street foods"
                 fill
                 className="object-cover"

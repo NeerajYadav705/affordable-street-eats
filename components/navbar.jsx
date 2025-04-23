@@ -24,7 +24,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
-        searchRef.current && 
+        searchRef.current &&
         !searchRef.current.contains(event.target) &&
         !searchButtonRef.current?.contains(event.target)
       ) {
@@ -48,16 +48,16 @@ const Navbar = () => {
   const navLinks = [
     { id: 1, name: "Home", path: "/" },
     { id: 2, name: "Explore", path: "/explore" },
-    { 
-      id: 3, 
-      name: "Cities", 
+    {
+      id: 3,
+      name: "Cities",
       path: "/explore", // Main cities link
       sub: [
         { id: 31, name: "Dehradun", path: "/explore/dehradun" },
         { id: 32, name: "Haridwar", path: "/explore/haridwar" },
         { id: 33, name: "Rishikesh", path: "/explore/rishikesh" },
         { id: 34, name: "Mussoorie", path: "/explore/mussoorie" },
-      ] 
+      ],
     },
     { id: 4, name: "Blog", path: "/blog" },
     { id: 5, name: "About", path: "/about" },
@@ -72,52 +72,45 @@ const Navbar = () => {
     setSearchQuery("");
   };
 
-  // Custom SVG Logo
   const Logo = () => (
-    <svg 
-      width="160" 
-      height="40" 
-      viewBox="0 0 160 40" 
-      fill="none" 
+    <svg
+      width="200"
+      height="60"
+      viewBox="0 0 200 60"
+      fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="h-10 w-auto"
+      className="h-12 w-auto"
     >
-      {/* Food Cart Icon */}
-      <path 
-        d="M10 20L15 10H25L30 20H10Z" 
-        fill="#F97316" 
-        stroke="#F97316" 
-        strokeWidth="2"
-      />
-      <circle cx="13" cy="27" r="3" fill="#F97316" />
-      <circle cx="27" cy="27" r="3" fill="#F97316" />
-      
-      {/* Utensil Icon */}
-      <path 
-        d="M40 10V30M45 15L50 10L55 15L50 20L45 15Z" 
-        stroke="#F97316" 
-        strokeWidth="2" 
-        strokeLinecap="round"
-      />
-      
-      {/* Text: Affordable Street Eats */}
-      <text 
-        x="65" 
-        y="25" 
-        fontFamily="Arial" 
-        fontSize="16" 
-        fontWeight="bold" 
+      {/* **Elegant Text with Custom Font Feel** */}
+      <text
+        x="50"
+        y="30"
+        fontFamily="'Poppins', sans-serif"
+        fontSize="18"
+        fontWeight="600"
+        fill="#1F2937"
+      >
+        Affordable
+      </text>
+      <text
+        x="55"
+        y="48"
+        fontFamily="'Poppins', sans-serif"
+        fontSize="18"
+        fontWeight="700"
         fill="#F97316"
       >
-        ASE
+        Street Eats
       </text>
     </svg>
   );
 
   return (
-    <header className={`fixed w-full z-50 transition-all duration-300 ${
-      scrolled ? "bg-white shadow-md py-2" : "bg-white/95 py-3"
-    }`}>
+    <header
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        scrolled ? "bg-white shadow-md py-2" : "bg-white/95 py-3"
+      }`}
+    >
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center">
@@ -131,8 +124,8 @@ const Navbar = () => {
               <Link
                 href={link.path}
                 className={`font-medium text-sm uppercase tracking-wider transition-colors ${
-                  pathname === link.path || 
-                  (link.sub && link.sub.some(sub => pathname === sub.path))
+                  pathname === link.path ||
+                  (link.sub && link.sub.some((sub) => pathname === sub.path))
                     ? "text-orange-600"
                     : "text-gray-700 hover:text-orange-500"
                 }`}
@@ -158,8 +151,8 @@ const Navbar = () => {
               )}
             </div>
           ))}
-          
-          <button 
+
+          <button
             ref={searchButtonRef}
             className="ml-2 p-2 text-gray-700 hover:text-orange-500"
             onClick={() => {
@@ -167,9 +160,13 @@ const Navbar = () => {
               setSearchQuery("");
             }}
           >
-            {showSearch ? <FiX className="w-5 h-5" /> : <FiSearch className="w-5 h-5" />}
+            {showSearch ? (
+              <FiX className="w-5 h-5" />
+            ) : (
+              <FiSearch className="w-5 h-5" />
+            )}
           </button>
-          
+
           <Link
             href="/submit-vendor"
             className="ml-2 px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-full hover:bg-orange-600 transition-colors"
@@ -180,7 +177,7 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         <div className="md:hidden flex items-center space-x-4">
-          <button 
+          <button
             ref={searchButtonRef}
             className="text-gray-700"
             onClick={() => {
@@ -188,7 +185,11 @@ const Navbar = () => {
               setSearchQuery("");
             }}
           >
-            {showSearch ? <FiX className="w-5 h-5" /> : <FiSearch className="w-5 h-5" />}
+            {showSearch ? (
+              <FiX className="w-5 h-5" />
+            ) : (
+              <FiSearch className="w-5 h-5" />
+            )}
           </button>
           <Sheet>
             <SheetTrigger className="focus:outline-none">
@@ -207,16 +208,15 @@ const Navbar = () => {
                     <Link
                       href={link.path}
                       className={`block py-3 px-4 rounded-lg text-lg ${
-                        pathname === link.path || 
-                        (link.sub && link.sub.some(sub => pathname === sub.path))
+                        pathname === link.path ||
+                        (link.sub &&
+                          link.sub.some((sub) => pathname === sub.path))
                           ? "bg-orange-100 text-orange-600 font-medium"
                           : "text-gray-800 hover:bg-orange-50"
                       }`}
                     >
                       {link.name}
-                      {link.sub && (
-                        <span className="float-right">+</span>
-                      )}
+                      {link.sub && <span className="float-right">+</span>}
                     </Link>
                     {link.sub && (
                       <div className="ml-6 mt-1 space-y-1">
@@ -259,16 +259,18 @@ const Navbar = () => {
 
       {/* Search Bar */}
       {showSearch && (
-        <div 
+        <div
           ref={searchRef}
           className={`fixed left-0 right-0 bg-white border-b border-gray-200 px-4 py-3 z-40 ${
             scrolled ? "top-16" : "top-20"
           } shadow-sm`}
         >
-          <form 
+          <form
             onSubmit={handleSearch}
             className={`relative flex items-center ${
-              typeof window !== 'undefined' && window.innerWidth >= 768 ? "max-w-2xl mx-auto" : ""
+              typeof window !== "undefined" && window.innerWidth >= 768
+                ? "max-w-2xl mx-auto"
+                : ""
             }`}
           >
             <FiSearch className="absolute left-3 text-gray-400" />
@@ -277,14 +279,14 @@ const Navbar = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={
-                typeof window !== 'undefined' && window.innerWidth >= 768 
-                  ? "Search street foods across Uttarakhand..." 
+                typeof window !== "undefined" && window.innerWidth >= 768
+                  ? "Search street foods across Uttarakhand..."
                   : "Search street foods near you..."
               }
               className="w-full pl-10 pr-16 py-2 text-sm rounded-full border border-orange-200 focus:outline-none focus:ring-2 focus:ring-orange-300"
               autoFocus
             />
-            <button 
+            <button
               type="button"
               onClick={() => {
                 setShowSearch(false);
@@ -294,7 +296,7 @@ const Navbar = () => {
             >
               <FiX className="w-4 h-4" />
             </button>
-            <button 
+            <button
               type="submit"
               className="absolute right-3 text-orange-500 hover:text-orange-700"
             >
