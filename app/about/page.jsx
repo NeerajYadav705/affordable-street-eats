@@ -159,7 +159,7 @@ const AboutPage = () => {
             <div className="md:flex">
               <div className="md:w-1/3 relative h-64 md:h-auto">
                 <Image
-                  src="/founder.jpg"
+                  src="/about/neeraj.jpg"
                   alt="Founder's photo"
                   fill
                   className="object-cover"
@@ -182,12 +182,7 @@ const AboutPage = () => {
                   food gems or convincing vendors their mom's recipe deserves
                   global fame.
                 </p>
-                <div className="mt-6 pt-6 border-t border-gray-100">
-                  <p className="text-sm text-gray-500">
-                    P.S. The kachori at Sharma Ji's stall in Dehradun?
-                    Life-changing. Check our Dehradun guide for directions.
-                  </p>
-                </div>
+           
               </div>
             </div>
           </div>

@@ -55,7 +55,7 @@ const Navbar = () => {
       sub: [
         { id: 31, name: "Dehradun", path: "/explore/dehradun" },
         { id: 32, name: "Haridwar", path: "/explore/haridwar" },
-        { id: 33, name: "Rishikesh", path: "/explore/rishikesh" },
+        { id: 33, name: "Nainital", path: "/explore/nainital" },
         { id: 34, name: "Mussoorie", path: "/explore/mussoorie" },
       ],
     },
