@@ -16,10 +16,7 @@ const ExplorePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Example: Fetch cities in Next.js
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/cities`
-        );
+        const response = await fetch("https://affordable-street-eats-backend.onrender.com/api/cities");
         if (!response.ok) throw new Error("Failed to fetch data");
         const data = await response.json();
 
@@ -58,6 +55,7 @@ const ExplorePage = () => {
         Error: {error}
       </div>
     );
+
 
   return (
     <main className="bg-gray-50">
@@ -209,24 +207,19 @@ const ExplorePage = () => {
       </div>
 
       {/* City Sections */}
-      {/* City Sections */}
+        {/* City Sections */}
       <div className="container mx-auto px-4 py-12 max-w-7xl">
         {cities.map((city) => (
           <section key={city._id} id={city.slug} className="mb-20 scroll-mt-16">
             <div className="flex flex-col lg:flex-row gap-8 items-start">
               {/* City Introduction */}
               <div className="lg:w-1/3 lg:sticky lg:top-24">
-                <div
-                  className={`p-6 rounded-xl bg-gradient-to-br ${city.color} text-gray-900 shadow-lg`}
-                >
+                <div className={`p-6 rounded-xl bg-gradient-to-br ${city.color} text-gray-900 shadow-lg`}>
                   <h2 className="text-2xl font-bold mb-2">{city.name}</h2>
                   <p className="text-gray-500 mb-6">{city.tagline}</p>
                   <div className="flex flex-wrap gap-2 mb-6">
                     {city.highlights.map((item, i) => (
-                      <span
-                        key={i}
-                        className="bg-white/20 px-3 py-1 rounded-full text-sm"
-                      >
+                      <span key={i} className="bg-white/20 px-3 py-1 rounded-full text-sm">
                         {item}
                       </span>
                     ))}
@@ -238,9 +231,7 @@ const ExplorePage = () => {
                     </div>
                     <div className="flex items-center">
                       <FaFireAlt className="mr-3 opacity-80" />
-                      <span>
-                        Trending: {city.foods[0]?.name || "Loading..."}
-                      </span>
+                      <span>Trending: {city.foods[0]?.name || "Loading..."}</span>
                     </div>
                     <div className="flex items-center">
                       <FaWallet className="mr-3 opacity-80" />
@@ -248,7 +239,7 @@ const ExplorePage = () => {
                     </div>
                   </div>
                 </div>
-                <Link
+                <Link 
                   href={`/explore/${city.slug}`}
                   className="mt-4 inline-flex items-center group"
                 >
@@ -263,7 +254,7 @@ const ExplorePage = () => {
               <div className="w-full lg:w-2/3">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   {city.foods.map((food, i) => (
-                    <div
+                    <div 
                       key={i}
                       className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100"
                     >
