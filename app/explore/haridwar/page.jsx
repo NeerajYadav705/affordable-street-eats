@@ -13,7 +13,7 @@ const HaridwarPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/cities');
+        const response = await fetch('https://affordable-street-eats-backend.onrender.com/api/cities');
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         const city = data.find(c => c.slug === 'haridwar');
