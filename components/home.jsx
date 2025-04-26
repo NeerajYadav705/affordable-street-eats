@@ -1,5 +1,7 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import {
   FiMapPin,
   FiStar,
@@ -7,8 +9,55 @@ import {
   FiAward,
   FiUsers,
   FiTrendingUp,
+  FiChevronRight,
 } from "react-icons/fi";
 import { FaFacebook, FaInstagram, FaYelp } from "react-icons/fa";
+
+// Animation variants
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+};
+
+const fadeIn = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.8 } },
+};
+
+const slideUp = {
+  hidden: { opacity: 0, y: 50 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+};
+
+const scaleUp = {
+  hidden: { scale: 0.95, opacity: 0 },
+  show: { scale: 1, opacity: 1, transition: { duration: 0.5 } },
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const staggerItem = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+};
 
 export default function Home() {
   // Sample data - replace with API calls
@@ -143,11 +192,16 @@ export default function Home() {
   ];
 
   return (
-    <main className="">
+    <main className="overflow-hidden">
       {/* Enhanced Hero Section */}
       <section className="relative h-screen min-h-[600px] flex items-center">
         {/* Background Video */}
-        <div className="absolute inset-0 z-0">
+        <motion.div 
+          className="absolute inset-0 z-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
           <video
             autoPlay
             loop
@@ -158,20 +212,34 @@ export default function Home() {
             <source src="/hero/hero_video.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-black/40" />
-        </div>
+        </motion.div>
 
         {/* Hero Content */}
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-2xl bg-transparent backdrop-blur-none p-8 rounded-xl shadow-xl">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-200 mb-4 leading-tight">
+          <motion.div 
+            className="max-w-2xl bg-transparent backdrop-blur-none p-8 rounded-xl shadow-xl"
+            initial="hidden"
+            animate="show"
+            variants={container}
+          >
+            <motion.h1 
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-200 mb-4 leading-tight"
+              variants={item}
+            >
               Taste of <span className="text-orange-600">Uttarakhand</span> One
               Bite at a Time
-            </h1>
-            <p className="text-xl text-gray-500 mb-8">
+            </motion.h1>
+            <motion.p 
+              className="text-xl text-gray-500 mb-8"
+              variants={item}
+            >
               Discover authentic street flavors, hidden gems, and local
               favorites with our community-driven food map
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            </motion.p>
+            <motion.div 
+              className="flex flex-col sm:flex-row gap-4"
+              variants={item}
+            >
               <Link
                 href="/explore"
                 className="bg-orange-600 hover:bg-orange-700 text-white font-medium py-3 px-8 rounded-full text-center transition-colors flex items-center justify-center"
@@ -185,39 +253,72 @@ export default function Home() {
               >
                 Add Your Stall
               </Link>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
 
         {/* Scrolling Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <motion.div 
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5, duration: 0.5 }}
+        >
           <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
             <div className="w-1 h-2 bg-white mt-2 rounded-full animate-scroll"></div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Stats Bar */}
-      <section className="bg-orange-600 text-white py-8">
+      <motion.section 
+        className="bg-orange-600 text-white py-8"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <motion.div 
+            className="grid grid-cols-2 md:grid-cols-4 gap-8"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
             {stats.map((stat, index) => (
-              <div key={index} className="text-center">
+              <motion.div 
+                key={index} 
+                className="text-center"
+                variants={staggerItem}
+              >
                 <div className="flex justify-center text-white mb-2">
                   {stat.icon}
                 </div>
                 <div className="text-3xl font-bold">{stat.value}</div>
                 <div className="text-orange-100">{stat.label}</div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Featured Cities - Enhanced */}
-      <section className="py-20 bg-gradient-to-b from-orange-50 to-white">
+      <motion.section 
+        className="py-20 bg-gradient-to-b from-orange-50 to-white"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <motion.div 
+            className="text-center mb-16"
+            variants={slideUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Where Flavors Come Alive
             </h2>
@@ -225,120 +326,148 @@ export default function Home() {
               Explore street food havens across Uttarakhand's most vibrant
               cities
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featuredCities.map((city) => (
-              <Link
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
+            {featuredCities.map((city, index) => (
+              <motion.div 
                 key={city.slug}
-                href={`/explore/${city.slug}`}
-                className="group relative rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
+                variants={item}
+                whileHover={{ y: -10 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
-                <div className="h-80 relative">
-                  <Image
-                    src={city.image}
-                    alt={`Street food in ${city.name}`}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h3 className="text-2xl font-bold mb-1">{city.name}</h3>
-                    <p className="text-orange-200 mb-2">{city.specialty}</p>
-                    <div className="flex items-center text-sm">
-                      <FiMapPin className="mr-1" />
-                      {city.foodCount}+ food spots
+                <Link
+                  href={`/explore/${city.slug}`}
+                  className="group relative rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 block"
+                >
+                  <div className="h-80 relative">
+                    <Image
+                      src={city.image}
+                      alt={`Street food in ${city.name}`}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                      <h3 className="text-2xl font-bold mb-1">{city.name}</h3>
+                      <p className="text-orange-200 mb-2">{city.specialty}</p>
+                      <div className="flex items-center text-sm">
+                        <FiMapPin className="mr-1" />
+                        {city.foodCount}+ food spots
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Trending Foods - Expanded */}
-      <section className="py-20 bg-white">
+      <motion.section 
+        className="py-20 bg-white"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <motion.div 
+            className="text-center mb-16"
+            variants={slideUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Must-Try Street Foods
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Current favorites according to our community of food explorers
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
             {trendingFoods.map((food) => (
-              <div
+              <motion.div
                 key={food.id}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100"
+                variants={item}
+                whileHover={{ scale: 1.03 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
-                <div className="relative h-60">
-                  <Image
-                    src={food.image}
-                    alt={food.name}
-                    fill
-                    className="object-cover"
-                    priority
-                  />
-                  <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-sm font-medium shadow-sm">
-                    {food.price}
-                  </div>
-                </div>
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-xl font-bold text-gray-900">
-                      {food.name}
-                    </h3>
-                    <div className="flex items-center bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-sm font-medium">
-                      <FiStar className="mr-1" />
-                      {food.rating}
+                <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 h-full flex flex-col">
+                  <div className="relative h-60">
+                    <Image
+                      src={food.image}
+                      alt={food.name}
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                    <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-sm font-medium shadow-sm">
+                      {food.price}
                     </div>
                   </div>
-                  <p className="text-gray-600 mb-3">
-                    {food.vendor} •{" "}
-                    <span className="text-orange-600">{food.location}</span>
-                  </p>
+                  <div className="p-6 flex-grow">
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="text-xl font-bold text-gray-900">
+                        {food.name}
+                      </h3>
+                      <div className="flex items-center bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-sm font-medium">
+                        <FiStar className="mr-1" />
+                        {food.rating}
+                      </div>
+                    </div>
+                    <p className="text-gray-600 mb-3">
+                      {food.vendor} •{" "}
+                      <span className="text-orange-600">{food.location}</span>
+                    </p>
 
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {food.tags.map((tag, index) => (
-                      <span
-                        key={index}
-                        className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {food.tags.map((tag, index) => (
+                        <span
+                          key={index}
+                          className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
 
-                  <Link
-                    href={`/vendors/${food.id}`}
-                    className="text-orange-600 hover:text-orange-700 font-medium flex items-center"
-                  >
-                    View details
-                    <svg
-                      className="ml-1 w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+                    <Link
+                      href={`/vendors/${food.id}`}
+                      className="text-orange-600 hover:text-orange-700 font-medium flex items-center mt-auto"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </Link>
+                      View details
+                      <FiChevronRight className="ml-1" />
+                    </Link>
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-          <div className="text-center mt-16">
+          <motion.div 
+            className="text-center mt-16"
+            variants={fadeIn}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
             <Link
               href="/explore"
               className="inline-flex items-center bg-orange-600 hover:bg-orange-700 text-white font-medium py-3 px-8 rounded-full transition-colors"
@@ -346,51 +475,87 @@ export default function Home() {
               Explore All Foods
               <FiMapPin className="ml-2" />
             </Link>
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Food Categories - Expanded */}
-      <section className="py-20 bg-orange-50">
+      <motion.section 
+        className="py-20 bg-orange-50"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <motion.div 
+            className="text-center mb-16"
+            variants={slideUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Browse By Category
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Find exactly what you're craving with our specialized categories
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {foodCategories.map((category) => (
-              <Link
+          <motion.div 
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6"
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
+            {foodCategories.map((category, index) => (
+              <motion.div
                 key={category.name}
-                href={`/explore?category=${category.name.toLowerCase()}`}
-                className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 text-center hover:-translate-y-2"
+                variants={item}
+                whileHover={{ y: -5, scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
-                <span className="text-4xl mb-3 inline-block">
-                  {category.icon}
-                </span>
-                <h3 className="font-bold text-gray-900 mb-1">
-                  {category.name}
-                </h3>
-                <p className="text-sm text-gray-500 mb-2">
-                  {category.count} vendors
-                </p>
-                <p className="text-xs text-orange-600 font-medium">
-                  Popular: {category.popular}
-                </p>
-              </Link>
+                <Link
+                  href={`/explore?category=${category.name.toLowerCase()}`}
+                  className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 text-center block h-full"
+                >
+                  <span className="text-4xl mb-3 inline-block">
+                    {category.icon}
+                  </span>
+                  <h3 className="font-bold text-gray-900 mb-1">
+                    {category.name}
+                  </h3>
+                  <p className="text-sm text-gray-500 mb-2">
+                    {category.count} vendors
+                  </p>
+                  <p className="text-xs text-orange-600 font-medium">
+                    Popular: {category.popular}
+                  </p>
+                </Link>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Testimonials */}
-      <section className="py-20 bg-white">
+      <motion.section 
+        className="py-20 bg-white"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <motion.div 
+            className="text-center mb-16"
+            variants={slideUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               What Foodies Are Saying
             </h2>
@@ -398,65 +563,93 @@ export default function Home() {
               Join thousands of happy explorers discovering Uttarakhand's street
               food scene
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
             {testimonials.map((testimonial, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100"
+                variants={item}
+                whileHover={{ y: -5 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
-                <div className="flex items-center mb-4">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
-                    <Image
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      fill
-                      className="object-cover"
-                    />
+                <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 h-full">
+                  <div className="flex items-center mb-4">
+                    <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
+                      <Image
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900">
+                        {testimonial.name}
+                      </h4>
+                      <p className="text-sm text-gray-500">
+                        {testimonial.location}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-bold text-gray-900">
-                      {testimonial.name}
-                    </h4>
-                    <p className="text-sm text-gray-500">
-                      {testimonial.location}
-                    </p>
+                  <p className="text-gray-700 mb-4">"{testimonial.text}"</p>
+                  <div className="flex">
+                    {[...Array(5)].map((_, i) => (
+                      <FiStar
+                        key={i}
+                        className={`${
+                          i < testimonial.rating
+                            ? "text-yellow-500 fill-yellow-500"
+                            : "text-gray-300"
+                        }`}
+                      />
+                    ))}
                   </div>
                 </div>
-                <p className="text-gray-700 mb-4">"{testimonial.text}"</p>
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <FiStar
-                      key={i}
-                      className={`${
-                        i < testimonial.rating
-                          ? "text-yellow-500 fill-yellow-500"
-                          : "text-gray-300"
-                      }`}
-                    />
-                  ))}
-                </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Seasonal Specials */}
-      <section className="py-20 bg-orange-600 text-white">
+      <motion.section 
+        className="py-20 bg-orange-600 text-white"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <motion.div 
+            className="text-center mb-16"
+            variants={slideUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Seasonal Delights
             </h2>
             <p className="text-xl text-orange-100 max-w-3xl mx-auto">
               Limited-time street foods you won't want to miss this season
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div>
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
+            <motion.div variants={item}>
               <h3 className="text-2xl font-bold mb-4">Summer Specials</h3>
               <ul className="space-y-4">
                 <li className="flex items-start">
@@ -493,49 +686,79 @@ export default function Home() {
                   </div>
                 </li>
               </ul>
-            </div>
+            </motion.div>
 
-            <div className="relative h-80 rounded-2xl overflow-hidden shadow-2xl">
+            <motion.div 
+              className="relative h-80 rounded-2xl overflow-hidden shadow-2xl"
+              variants={item}
+              whileHover={{ scale: 1.02 }}
+            >
               <Image
                 src="/hero/drinks.jpg"
                 alt="Seasonal street foods"
                 fill
                 className="object-cover"
               />
-              <div className="absolute inset-0 " />
-            </div>
-          </div>
+              <div className="absolute inset-0" />
+            </motion.div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Final CTA */}
-      <section className="py-20 bg-gray-900 text-white">
+      <motion.section 
+        className="py-20 bg-gray-900 text-white"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold mb-6"
+            variants={slideUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
             Ready to Explore Uttarakhand's Street Food?
-          </h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+          </motion.h2>
+          <motion.p 
+            className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto"
+            variants={slideUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
             Join our community of food lovers and never miss out on the best
             local flavors
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link
-              href="/explore"
-              className="bg-orange-600 hover:bg-orange-700 text-white font-medium py-3 px-8 rounded-full transition-colors"
-            >
-              Start Exploring Now
-            </Link>
-            <Link
-              href="/submit-vendor"
-              className="bg-transparent hover:bg-white/10 text-white font-medium py-3 px-8 rounded-full border border-white transition-colors"
-            >
-              Add Your Food Stall
-            </Link>
-          </div>
-
-        
+          </motion.p>
+          <motion.div 
+            className="flex flex-col sm:flex-row justify-center gap-4"
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
+            <motion.div variants={item}>
+              <Link
+                href="/explore"
+                className="bg-orange-600 hover:bg-orange-700 text-white font-medium py-3 px-8 rounded-full transition-colors inline-block"
+              >
+                Start Exploring Now
+              </Link>
+            </motion.div>
+            <motion.div variants={item}>
+              <Link
+                href="/submit-vendor"
+                className="bg-transparent hover:bg-white/10 text-white font-medium py-3 px-8 rounded-full border border-white transition-colors inline-block"
+              >
+                Add Your Food Stall
+              </Link>
+            </motion.div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
     </main>
   );
 }

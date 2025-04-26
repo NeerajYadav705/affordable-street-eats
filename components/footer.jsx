@@ -192,7 +192,7 @@ const Footer = () => {
           <p className="flex items-center justify-center gap-1">
             Crafted by
             <a
-              href="#"
+              href="https://portfolio-six-xi-87.vercel.app/"
               className="text-lime-500 hover:underline"
               target="_blank"
               rel="noopener noreferrer"
